@@ -30,6 +30,14 @@ export function AuthProvider({ children }) {
         setUser(null);
     }, [token]);
 
+    // جلسة جاهزة (تستخدمها صفحة ProviderAccount بعد التسجيل الناجح)
+    const setSession = useCallback((newToken, newUser) => {
+        localStorage.setItem('amrtm_token', newToken);
+        localStorage.setItem('amrtm_user', JSON.stringify(newUser));
+        setToken(newToken);
+        setUser(newUser);
+    }, []);
+
     // استرجاع المستخدم عند فتح الصفحة (توكن موجود)
     useEffect(() => {
         if (!token) {
@@ -48,7 +56,7 @@ export function AuthProvider({ children }) {
     }, [token]);
 
     return (
-        <AuthContext.Provider value={{ user, token, login, logout, loading }}>
+        <AuthContext.Provider value={{ user, token, login, logout, setSession, loading }}>
             {children}
         </AuthContext.Provider>
     );

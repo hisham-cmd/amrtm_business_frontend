@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import api from '../api/client';
+import UiButton from '../components/ui/UiButton';
 
 export default function Services() {
     const [categories, setCategories] = useState([]);
@@ -24,20 +25,26 @@ export default function Services() {
 
             {/* شريط التصنيفات */}
             <div className="mt-6 flex flex-wrap gap-2">
-                <button
+                <UiButton
+                    variant="ghost"
+                    size="sm"
                     onClick={() => setParams({})}
-                    className={`rounded-full px-4 py-1.5 text-sm font-semibold transition ${!activeCategory ? 'bg-primary text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
+                    className={`!rounded-full !px-4 !py-1.5 text-sm font-semibold transition ${!activeCategory ? '!bg-primary text-white' : '!bg-gray-100 text-gray-600 hover:!bg-gray-200'}`}
+                    aria-pressed={!activeCategory}
                 >
                     الكل
-                </button>
+                </UiButton>
                 {categories.map((cat) => (
-                    <button
+                    <UiButton
                         key={cat.id}
+                        variant="ghost"
+                        size="sm"
                         onClick={() => setParams({ category: cat.id })}
-                        className={`rounded-full px-4 py-1.5 text-sm font-semibold transition ${activeCategory === cat.id ? 'bg-primary text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
+                        className={`!rounded-full !px-4 !py-1.5 text-sm font-semibold transition ${activeCategory === cat.id ? '!bg-primary text-white' : '!bg-gray-100 text-gray-600 hover:!bg-gray-200'}`}
+                        aria-pressed={activeCategory === cat.id}
                     >
                         {cat.name_ar}
-                    </button>
+                    </UiButton>
                 ))}
             </div>
 
